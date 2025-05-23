@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	CƠ SỞ DỮ LIỆU NGÀNH GIÁO DỤC VÀ ĐÀO TẠO
+</title><link rel="shortcut icon" href="../images/logo.ico" />
+        <link href="https://truong.hanoi.edu.vn/css/banner.css?106" rel="stylesheet" />
+        <link href="https://truong.hanoi.edu.vn/css/Fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="https://truong.hanoi.edu.vn/css/bootstrap.min.css?" rel="stylesheet" />
+        
+        <link href="https://truong.hanoi.edu.vn/css/toastr.min.css" rel="stylesheet" />
+        <link href="https://truong.hanoi.edu.vn/css/style-form.css?106" rel="stylesheet" />
+        <link href="https://truong.hanoi.edu.vn/css/style.css?106" rel="stylesheet" />
+        <script src="https://truong.hanoi.edu.vn/js/jquery-2.1.4.min.js"></script>
+        
+        <script src="https://truong.hanoi.edu.vn/js/toastr.min.js?"></script>
+        <script src="https://truong.hanoi.edu.vn/js/main.js?106"></script>
+        <script src="https://truong.hanoi.edu.vn/js/Validate.js?106"></script>
+        <script src="https://truong.hanoi.edu.vn/js/bootstrap.min.js"></script>
+        <link href="https://truong.hanoi.edu.vn/css/style_hocbaso_chukydientu.css?v=638828826584978107" rel="stylesheet" />
+        <link href="https://truong.hanoi.edu.vn/css/sweet_alert/sweetalert.css" rel="stylesheet" />
+        <script src="https://truong.hanoi.edu.vn/css/sweet_alert/sweetalert.min.js?"></script>
+    
+        <script>
+            window.onload = function () {
+                if (window.history.replaceState) {
+                    window.history.replaceState(null, null, window.location.href);
+                }
+            };
+            //change domain protocal https
+            ChangeLocationHttps();
+
+            var istrcn, iskhac;
+            istrcn = 0;
+            iskhac = 0;
+            var containerK = $("#qi-menu-danh-muc-khac");
+            var containertcn = $("#qi-menu-truy-cap-nhanh");
+            $(document).ready(function () {
+                $(".qi-div-item-TCN").click(function () {
+                    rurl = $(this).attr('rurl');
+                    window.location.href = rurl;
+                });
+                $(".bt-mo").attr('title', 'Ẩn/hiện khối lọc.');
+                $(".bt-zoom").attr('title', 'Xem toàn màn hình.');
+                $(".bt-config-cot").attr('title', 'Cấu hình hiển thị cột dữ liệu.');
+                $(document).mouseup(function (e) {
+                    // Danh mục khác
+                    if (!containerK.is(e.target)
+                        && containerK.has(e.target).length === 0) {
+                        iskhac = 0;
+                        $("#qi-menu-danh-muc-khac").hide();
+                    }
+                    // truy cập nhanh
+                    if (!containertcn.is(e.target)
+                        && containertcn.has(e.target).length === 0) {
+                        istrcn = 0;
+                        $("#qi-menu-truy-cap-nhanh").hide();
+                    }
+                });
+                $("#qi-image-danh-muc-khac").click(function () {
+                    try {
+                        if (iskhac === 0) {
+                            $("#qi-menu-danh-muc-khac").show();
+                        } else {
+                            $("#qi-menu-danh-muc-khac").hide();
+                        }
+                        iskhac = 1 - iskhac;
+                        istrcn = 0;
+                        $("#qi-menu-truy-cap-nhanh").hide();
+                    } catch (err) {
+                        console.log(err);
+                    }
+                });
+                $("#qi-image-truy-cap-nhanh").click(function () {
+                    try {
+                        if (istrcn === 0) {
+                            $("#qi-menu-truy-cap-nhanh").show();
+                            $("#qi-menu-truy-cap-nhanh ul").html("");
+                            $("#qi-menu-truy-cap-nhanh ul").addClass("loading");
+                            $.ajax({
+                                url: 'https://truong.hanoi.edu.vn/DanhSachTruyCapNhanh.aspx',
+                            }).done(function (msg) {
+                                $("#qi-menu-truy-cap-nhanh ul").removeClass("loading");
+                                $("#qi-menu-truy-cap-nhanh ul").html(msg);
+                            });
+                        } else {
+                            $("#qi-menu-truy-cap-nhanh").hide();
+                        }
+                        istrcn = 1 - istrcn;
+                        iskhac = 0;
+                        $("#qi-menu-danh-muc-khac").hide();
+                    } catch (err) {
+                        console.log(err);
+                    }
+                });
+
+            });
+
+            function goHomeLogo() {
+                document.location.href = 'https://truong.hanoi.edu.vn/Default.aspx';
+            }
+
+            function cbSoftwareShowImage(image) {
+                var input = document.getElementById("ctl00_cbSoftware_Input");
+                input.style.background = "url(../images/iconPM/" + image + ".jpg) no-repeat";
+            }
+
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = "toast-bottom-right";
+            function notification(type, message) {
+                if (type == 'success') {
+                    toastr.success(message, '<i>Thành công</i>');
+                } else if (type == 'error') {
+                    toastr.error(message, '<b>Lỗi</b>');
+                } else if (type == 'warning') {
+                    toastr.warning(message, '<b>Cảnh báo</b>');
+                } else {
+                    toastr.info(message, 'Thông báo');
+                }
+            }
+        </script>
+    
+<link href="/WebResource.axd?d=b8adWYak0tImLef4A3fc9Rxx_m4p-Y7b7javIGJE-zAHKvuGcQT9tb0-vNvZapHdTpCf8glvC55EAn29WG_VWcixeMqSS0ISdndGry_Cxp0T-og2WMus8yM11MzyAypsBjAWrg2&amp;t=638828826482202957" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /><link href="/WebResource.axd?d=2LtZVYi89WHmqQf2LLpp80ojO7VYy6RhyO2U0ghDQezKe6tN0u4qX-M5RyGDeB4bpE_gGunk3zGzuOc4tlgWwy0c3xBi7gXwFV_Ihr_3WJz0bm5Pd2qoVPDZ8W-vkaHjLD3h5MT79TcLv6rFxhPc_8oVJAA1&amp;t=638828826479902798" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /><link href="/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdfOppUaTo8tyvppMaRiZQcP1XATZdbXihQBekHZec_7Gr7yAydI6OeDnvd2j-7E618eWNbEWz5aMZWs7zRNJ6DN-zHsN0&amp;t=638828826482202957" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /><link href="/WebResource.axd?d=0NMpxx239ts8mdD-HPE6bCGR_xEZkNtq2so3FJ2OqekXSq-36Q5quhJhXWTkdYbhN60o5C_z4NAGE-F3WLmC8j7SExwXiSsJdusEdsHNwaZamVHCwKUf6WXLVfjl8vqh_TtqvFqH5ISwMaYw5V0h6V7Qrbw1&amp;t=638828826479902798" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /></head>
+<body>
+
+    <div class="submit-progress hidden">
+        <i class="fa fa-2x fa-spinner fa-spin"></i>
+        <label>Vui lòng chờ...</label>
+    </div>
+
+    <form method="post" action="./DanhGiaDinhKyImportExcel.aspx?is_popup=1&amp;SelectedMaKhoi=02&amp;SelectedIDLop=67840&amp;SelectedMaGiaiDoan=CK2" id="form1" enctype="multipart/form-data">
+<div class="aspNetHidden">
+<input type="hidden" name="RadScriptManager1_TSM" id="RadScriptManager1_TSM" value="" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZKf1qFc2mHVfJwpy8yM2YD2lTUsKB7EBM14NCDnHCKY3z4pQAw2&amp;t=638628459619783110" type="text/javascript"></script>
+
+
+<script src="/Telerik.Web.UI.WebResource.axd?_TSM_HiddenField_=RadScriptManager1_TSM&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3bSystem.Web.Extensions%2c+Version%3d4.0.0.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d31bf3856ad364e35%3aen-US%3a95047a2c-8908-49e3-b68e-d249be89f134%3aea597d4b%3ab25378d2%3bTelerik.Web.UI%2c+Version%3d2025.1.416.462%2c+Culture%3dneutral%2c+PublicKeyToken%3d121fae78165ba3d4%3aen-US%3aced1f735-5c2a-4218-bd68-1813924fe936%3a16e4e7cd%3af7645509%3a2003d0b8%3a24ee1bba%3ac128760b%3a1e771326%3a88144a7a%3af46195d3%3a33715776%3aaa288e2d%3a258f1c72%3a58366029" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="B9D60C53" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="GbA+pKnGQVq87KEflE0ixy7MtsbMpeXR6P+6I0oqspLPKjlL6mOr4bCZX+XhkzbSyrjGzqYLbJOx0868h6OJtSw3Npd3p3LcrHKaH6GfRe90MY60eh3XSqq6t3RdgqqLmC+ijGc5C2MA7N7vEiPxnwEnwpSXGU/lajYXkdmPEbvMWoz+dkjBymk7xwYSawFvJvRCIYOE96RdR9+eBAkACsVZUgCvW8lIHOUOSaKjOGRM9ZZ78iOhRrN69G35Pnk2j7w3qddPDOcqvAgYWFpgOARm9xDQhGCqNyQ7wiUFbJcdevoWImTg/vu7G/LuXGeka0a7h5/nmhJ1rMMZ4/Q2OtT4+ac=" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$RadScriptManager1', 'form1', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+        <input type="hidden" name="ctl00$hdNAMHOC" id="hdNAMHOC" value="2024" />
+        <input type="hidden" name="ctl00$hdTRUONGID" id="hdTRUONGID" value="590662" />
+        <input type="hidden" name="ctl00$hdUSERID" id="hdUSERID" value="503596" />
+        <input type="hidden" name="ctl00$hdCAPHOC" id="hdCAPHOC" value="02" />
+        <input type="hidden" name="ctl00$hdKYHOC" id="hdKYHOC" value="2" />
+        <div>
+            
+     
+<div class="form-horizontal">
+    <div id="qi-div-toolbar-form">
+        <div class="col-sm-12 qi-tieu-de-form">
+            <span id="ContentPlaceHolder1_ctl00_lbTieuDe"> Nhập đánh giá định kỳ từ File Excel</span>
+            &nbsp;&nbsp;
+                
+            &nbsp;&nbsp;
+                <input type="submit" name="ctl00$ContentPlaceHolder1$ctl00$btnTaiExcelKemDuLieu" value="Tải file mẫu kèm dữ liệu" id="ContentPlaceHolder1_ctl00_btnTaiExcelKemDuLieu" class="btn btn-primary" />
+        </div>
+    </div>
+    <div id="qi-panel-message">
+        <div class="messageContent">
+            <span id="ContentPlaceHolder1_ctl00_lblMessageNotice"></span>
+        </div>
+    </div>
+    <div id="qi-panel-search">
+        <div class="form-group">
+            <label class="control-label">Khối:</label>
+            <div class="col-md-1">
+                <div id="ctl00_ContentPlaceHolder1_ctl00_rcbKhoi" class="RadComboBox RadComboBox_Bootstrap" style="width:100%;white-space:normal;">
+	<!-- 2025.1.416.462 --><table summary="combobox" style="border-width:0;border-collapse:collapse;width:100%">
+		<tr>
+			<td class="rcbInputCell rcbInputCellLeft" style="width:100%;"><input name="ctl00$ContentPlaceHolder1$ctl00$rcbKhoi" type="text" class="rcbInput radPreventDecorate" id="ctl00_ContentPlaceHolder1_ctl00_rcbKhoi_Input" value="Khối 2" /></td><td class="rcbArrowCell rcbArrowCellRight"><a id="ctl00_ContentPlaceHolder1_ctl00_rcbKhoi_Arrow" style="overflow: hidden;display: block;position: relative;outline: none;">select</a></td>
+		</tr>
+	</table><div class="rcbSlide" style="z-index:6000;display:none;"><div id="ctl00_ContentPlaceHolder1_ctl00_rcbKhoi_DropDown" class="RadComboBoxDropDown RadComboBoxDropDown_Bootstrap "><div class="rcbScroll rcbWidth"><ul class="rcbList"><li class="rcbItem">Khối 2</li></ul></div></div></div><input id="ctl00_ContentPlaceHolder1_ctl00_rcbKhoi_ClientState" name="ctl00_ContentPlaceHolder1_ctl00_rcbKhoi_ClientState" type="hidden" />
+</div>
+                
+            </div>
+            <label class="control-label">Lớp:</label>
+            <div class="col-md-2">
+                <div id="ctl00_ContentPlaceHolder1_ctl00_rcbLop" class="RadComboBox RadComboBox_Bootstrap" style="width:100%;white-space:normal;">
+	<table summary="combobox" style="border-width:0;border-collapse:collapse;width:100%">
+		<tr>
+			<td class="rcbInputCell rcbInputCellLeft" style="width:100%;"><input name="ctl00$ContentPlaceHolder1$ctl00$rcbLop" type="text" class="rcbInput radPreventDecorate" id="ctl00_ContentPlaceHolder1_ctl00_rcbLop_Input" value="2B" /></td><td class="rcbArrowCell rcbArrowCellRight"><a id="ctl00_ContentPlaceHolder1_ctl00_rcbLop_Arrow" style="overflow: hidden;display: block;position: relative;outline: none;">select</a></td>
+		</tr>
+	</table><div class="rcbSlide" style="z-index:6000;display:none;"><div id="ctl00_ContentPlaceHolder1_ctl00_rcbLop_DropDown" class="RadComboBoxDropDown RadComboBoxDropDown_Bootstrap "><div class="rcbScroll rcbWidth"><ul class="rcbList"><li class="rcbItem">2B</li></ul></div></div></div><input id="ctl00_ContentPlaceHolder1_ctl00_rcbLop_ClientState" name="ctl00_ContentPlaceHolder1_ctl00_rcbLop_ClientState" type="hidden" />
+</div>
+            </div>
+            <div style="display: none">
+                <label class="col-md-1 control-label">Môn học:</label>
+                <div class="col-md-2">
+                    <div id="ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc" class="RadComboBox RadComboBox_Bootstrap" style="width:100%;white-space:normal;">
+	<table summary="combobox" style="border-width:0;border-collapse:collapse;width:100%">
+		<tr>
+			<td class="rcbInputCell rcbInputCellLeft" style="width:100%;"><input name="ctl00$ContentPlaceHolder1$ctl00$rcbMonHoc" type="text" class="rcbInput radPreventDecorate rcbEmptyMessage" id="ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc_Input" value="Chọn môn học" /></td><td class="rcbArrowCell rcbArrowCellRight"><a id="ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc_Arrow" style="overflow: hidden;display: block;position: relative;outline: none;">select</a></td>
+		</tr>
+	</table><div class="rcbSlide" style="z-index:6000;display:none;"><div id="ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc_DropDown" class="RadComboBoxDropDown RadComboBoxDropDown_Bootstrap "><div class="rcbScroll rcbWidth"><ul class="rcbList"><li class="rcbItem">Tiếng Việt</li><li class="rcbItem">To&#225;n</li><li class="rcbItem">Tự nhi&#234;n v&#224; X&#227; hội</li><li class="rcbItem">Hoạt động trải nghiệm</li><li class="rcbItem">Đạo đức</li></ul></div></div></div><input id="ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc_ClientState" name="ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc_ClientState" type="hidden" />
+</div>
+                </div>
+            </div>
+
+            <label class="control-label">Thời điểm đánh giá:</label>
+            <div class="col-md-2">
+                <div id="ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia" class="RadComboBox RadComboBox_Bootstrap" style="width:100%;white-space:normal;">
+	<table summary="combobox" style="border-width:0;border-collapse:collapse;width:100%">
+		<tr class="rcbReadOnly">
+			<td class="rcbInputCell rcbInputCellLeft" style="width:100%;"><input name="ctl00$ContentPlaceHolder1$ctl00$rcbThoiDiemDanhGia" type="text" class="rcbInput radPreventDecorate" id="ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia_Input" value="Cuối năm học" readonly="readonly" /></td><td class="rcbArrowCell rcbArrowCellRight"><a id="ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia_Arrow" style="overflow: hidden;display: block;position: relative;outline: none;">select</a></td>
+		</tr>
+	</table><div class="rcbSlide" style="z-index:6000;display:none;"><div id="ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia_DropDown" class="RadComboBoxDropDown RadComboBoxDropDown_Bootstrap "><div class="rcbScroll rcbWidth"><ul class="rcbList"><li class="rcbItem">Giữa học kỳ II</li><li class="rcbItem">Cuối năm học</li></ul></div></div></div><input id="ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia_ClientState" name="ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia_ClientState" type="hidden" />
+</div>
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <table>
+                <tr>
+                    <td>
+                        <input type="file" multiple="multiple" name="ctl00$ContentPlaceHolder1$ctl00$FileExcel" id="ContentPlaceHolder1_ctl00_FileExcel" accept=".xls,.xlsx" /></td>
+                    <td>
+                        <input type="submit" name="ctl00$ContentPlaceHolder1$ctl00$bt_importSQL" value="Tải lên" id="ContentPlaceHolder1_ctl00_bt_importSQL" class="btn btn-primary" />
+                    </td>
+                    <td style="padding-left: 5px;">
+                        
+                    </td>
+                    <td style="padding-left: 5px;">
+                        
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+
+    <div>
+        <div id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1" class="RadGrid RadGrid_Bootstrap">
+
+<div class="rgHeaderWrapper"><div id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_GridHeader" class="rgHeaderDiv" style="overflow:hidden;">
+
+<table class="rgMasterTable rgClipCells" id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_Header" style="width:100%;table-layout:fixed;overflow:hidden;empty-cells:show;">
+	<colgroup>
+        <col style="width:50px" />
+        <col style="display:none;" />
+        <col style="width:50px;display:none;" />
+        <col style="width:100px" />
+        <col style="width:70px" />
+        <col style="width:80px;display:none;" />
+        <col style="width:150px" />
+        <col style="width:80px" />
+        <col style="width:40px;display:none;" />
+        <col style="width:40px;display:none;" />
+        <col style="width:100px;display:none;" />
+        <col style="width:300px;display:none;" />
+        <col style="width:40px" />
+        <col style="width:40px" />
+        <col style="width:100px" />
+        <col style="width:300px" />
+        <col style="width:50px" />
+    </colgroup>
+<thead>
+		<tr>
+			<th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">STT</th><th scope="col" class="rgHeader qi-head-list-grid" style="display:none;text-align:center;">&nbsp;</th><th scope="col" class="rgHeader qi-head-list-grid" style="display:none;text-align:left;">Mã môn</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Tên môn</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Mã định danh Bộ GD&ĐT</th><th scope="col" class="rgHeader qi-head-list-grid" style="display:none;text-align:center;">Mã định danh Bộ GD&ĐT</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Họ tên</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Ngày sinh</th><th scope="col" class="rgHeader qi-head-list-grid" style="display:none;text-align:left;">Mức đạt được</th><th scope="col" class="rgHeader qi-head-list-grid" style="display:none;text-align:left;">Điểm KTĐK</th><th scope="col" class="rgHeader qi-head-list-grid" style="display:none;text-align:left;">Mã nhận xét</th><th scope="col" class="rgHeader qi-head-list-grid" style="display:none;text-align:left;">Nội dung nhận xét</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Mức đạt được</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Điểm KTĐK</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Mã nhận xét</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Nội dung nhận xét</th><th scope="col" class="rgHeader qi-head-list-grid" style="text-align:left;">Thời điểm đánh giá</th>
+		</tr>
+	</thead><tbody style="display:none;"><tr><td colspan="17"></td></tr></tbody>
+</table>
+ </div></div>
+    <div id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_GridData" class="rgDataDiv" style="overflow-x:auto;overflow-y:auto;width:100%;height:300px;">
+
+<table class="rgMasterTable rgClipCells" id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00" style="width:100%;table-layout:fixed;overflow:hidden;empty-cells:show;">
+	<colgroup>
+        <col style="width:50px" />
+        <col style="display:none;" />
+        <col style="width:50px;display:none;" />
+        <col style="width:100px" />
+        <col style="width:70px" />
+        <col style="width:80px;display:none;" />
+        <col style="width:150px" />
+        <col style="width:80px" />
+        <col style="width:40px;display:none;" />
+        <col style="width:40px;display:none;" />
+        <col style="width:100px;display:none;" />
+        <col style="width:300px;display:none;" />
+        <col style="width:40px" />
+        <col style="width:40px" />
+        <col style="width:100px" />
+        <col style="width:300px" />
+        <col style="width:50px" />
+    </colgroup>
+<thead style="display:none;">
+		<tr>
+			<th scope="col"></th>
+		</tr>
+	</thead><tbody>
+	<tr class="rgNoRecords">
+		<td colspan="10" style="text-align:left;">
+                    <div style="padding: 20px 10px;">
+                        Không có bản ghi nào!
+                    </div>
+                </td>
+	</tr>
+	</tbody>
+
+</table>    </div>
+<table class="rgMasterTable rgClipCells" id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_Pager" style="width:100%;table-layout:fixed;overflow:hidden;empty-cells:show;">
+	<thead style="display:none;">
+		<tr>
+			<th scope="col"></th>
+		</tr>
+	</thead><tbody>
+		<tr class=" rgPager">
+			<td colspan="10"><table summary="Data pager which controls on which page is the RadGrid control." style="width:100%;border-spacing:0;">
+				<caption>
+					<span style='display: none'>Data pager</span>
+				</caption><thead>
+					<tr>
+						<th scope="col">Data pager</th>
+					</tr>
+				</thead><tbody>
+					<tr>
+						<td class="rgPagerCell NextPrevAndNumeric"><div class="rgWrap rgArrPart1">
+							<input type="submit" name="ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00$ctl03$ctl01$ctl02" value=" " onclick="return false;" title="First Page" class="rgPageFirst" /><input type="submit" name="ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00$ctl03$ctl01$ctl03" value=" " onclick="return false;" title="Previous Page" class="rgPagePrev" />
+						</div><div class="rgWrap rgNumPart">
+							<a onclick="return false;" class="rgCurrentPage" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00$ctl03$ctl01$ctl05&#39;,&#39;&#39;)"><span>1</span></a>
+						</div><div class="rgWrap rgArrPart2">
+							<input type="submit" name="ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00$ctl03$ctl01$ctl08" value=" " onclick="return false;" title="Next Page" class="rgPageNext" /><input type="submit" name="ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00$ctl03$ctl01$ctl09" value=" " onclick="return false;" title="Last Page" class="rgPageLast" />
+						</div><div class="rgWrap rgAdvPart">
+							<span id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_ChangePageSizeLabel" class="rgPagerLabel">Số bản ghi/trang</span><div id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox" class="RadComboBox RadComboBox_Bootstrap" style="width:73px;white-space:normal;">
+								<table summary="Page Size Drop Down Control" style="border-width:0;border-collapse:collapse;width:100%">
+									<caption>
+										PageSizeComboBox
+									</caption><tr class="rcbReadOnly">
+										<td class="rcbInputCell rcbInputCellLeft" style="width:100%;"><input name="ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00$ctl03$ctl01$PageSizeComboBox" type="text" class="rcbInput radPreventDecorate" id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox_Input" value="200" readonly="readonly" /></td><td class="rcbArrowCell rcbArrowCellRight"><a id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox_Arrow" style="overflow: hidden;display: block;position: relative;outline: none;">select</a></td>
+									</tr>
+								</table><div class="rcbSlide" style="z-index:6000;display:none;"><div id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox_DropDown" class="RadComboBoxDropDown RadComboBoxDropDown_Bootstrap "><div class="rcbScroll rcbWidth"><ul class="rcbList"><li class="rcbItem">10</li><li class="rcbItem">20</li><li class="rcbItem">50</li><li class="rcbItem">200</li></ul></div></div></div><input id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox_ClientState" name="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox_ClientState" type="hidden" />
+							</div>
+						</div><div class="rgWrap rgInfoPart">
+							 Dòng 0 đến 0/0
+						</div></td>
+					</tr>
+				</tbody>
+			</table></td>
+		</tr>
+	</tbody>
+
+</table><div id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_SharedCalendarContainer" style="display:none;">
+
+</div><input id="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ClientState" name="ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ClientState" type="hidden" />    </div>
+
+    </div>
+
+</div>
+
+ 
+
+        </div>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+window.__TsmHiddenField = $get('RadScriptManager1_TSM');
+WebForm_InitCallback();Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadComboBox, {"_dropDownWidth":0,"_height":0,"_postBackReference":"__doPostBack(\u0027ctl00$ContentPlaceHolder1$ctl00$rcbKhoi\u0027,\u0027arguments\u0027)","_skin":"Bootstrap","_text":"Khối 2","_uniqueId":"ctl00$ContentPlaceHolder1$ctl00$rcbKhoi","_value":"02","clientStateFieldID":"ctl00_ContentPlaceHolder1_ctl00_rcbKhoi_ClientState","collapseAnimation":"{\"duration\":450}","expandAnimation":"{\"duration\":450}","filter":1,"itemData":[{"value":"02","selected":true}],"localization":"{\"AllItemsCheckedString\":\"All items checked\",\"ItemsCheckedString\":\"items checked\",\"CheckAllString\":\"Check All\"}","selectedIndex":0}, null, null, $get("ctl00_ContentPlaceHolder1_ctl00_rcbKhoi"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadComboBox, {"_dropDownWidth":0,"_height":0,"_postBackReference":"__doPostBack(\u0027ctl00$ContentPlaceHolder1$ctl00$rcbLop\u0027,\u0027arguments\u0027)","_skin":"Bootstrap","_text":"2B","_uniqueId":"ctl00$ContentPlaceHolder1$ctl00$rcbLop","_value":"67840","clientStateFieldID":"ctl00_ContentPlaceHolder1_ctl00_rcbLop_ClientState","collapseAnimation":"{\"duration\":450}","emptyMessage":"Chọn lớp","expandAnimation":"{\"duration\":450}","filter":1,"itemData":[{"value":"67840","selected":true}],"localization":"{\"AllItemsCheckedString\":\"All items checked\",\"ItemsCheckedString\":\"items checked\",\"CheckAllString\":\"Check All\"}","selectedIndex":0}, null, null, $get("ctl00_ContentPlaceHolder1_ctl00_rcbLop"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadComboBox, {"_dropDownWidth":0,"_height":0,"_postBackReference":"__doPostBack(\u0027ctl00$ContentPlaceHolder1$ctl00$rcbMonHoc\u0027,\u0027arguments\u0027)","_skin":"Bootstrap","_uniqueId":"ctl00$ContentPlaceHolder1$ctl00$rcbMonHoc","clientStateFieldID":"ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc_ClientState","collapseAnimation":"{\"duration\":450}","emptyMessage":"Chọn môn học","expandAnimation":"{\"duration\":450}","filter":1,"itemData":[{"value":"02","attributes":{"ID_LOP_MON":"1171007","ID_MON_HOC":"10525","IS_UPDATE_DIEM":"1"}},{"value":"01","attributes":{"ID_LOP_MON":"1171008","ID_MON_HOC":"10524","IS_UPDATE_DIEM":"1"}},{"value":"04","attributes":{"ID_LOP_MON":"1171009","ID_MON_HOC":"10527","IS_UPDATE_DIEM":"0"}},{"value":"91","attributes":{"ID_LOP_MON":"1171014","ID_MON_HOC":"10611","IS_UPDATE_DIEM":"0"}},{"value":"03","attributes":{"ID_LOP_MON":"1171010","ID_MON_HOC":"10526","IS_UPDATE_DIEM":"0"}}],"localization":"{\"AllItemsCheckedString\":\"All items checked\",\"ItemsCheckedString\":\"items checked\",\"CheckAllString\":\"Check All\"}"}, null, null, $get("ctl00_ContentPlaceHolder1_ctl00_rcbMonHoc"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadComboBox, {"_dropDownWidth":0,"_height":0,"_postBackReference":"__doPostBack(\u0027ctl00$ContentPlaceHolder1$ctl00$rcbThoiDiemDanhGia\u0027,\u0027arguments\u0027)","_skin":"Bootstrap","_text":"Cuối năm học","_uniqueId":"ctl00$ContentPlaceHolder1$ctl00$rcbThoiDiemDanhGia","_value":"CK2","clientStateFieldID":"ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia_ClientState","collapseAnimation":"{\"duration\":450}","expandAnimation":"{\"duration\":450}","itemData":[{"value":"GK2"},{"value":"CK2","selected":true}],"localization":"{\"AllItemsCheckedString\":\"All items checked\",\"ItemsCheckedString\":\"items checked\",\"CheckAllString\":\"Check All\"}","selectedIndex":1}, null, null, $get("ctl00_ContentPlaceHolder1_ctl00_rcbThoiDiemDanhGia"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadComboBox, {"_dropDownWidth":0,"_height":0,"_skin":"Bootstrap","_text":"200","_uniqueId":"ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00$ctl03$ctl01$PageSizeComboBox","_value":"200","clientStateFieldID":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox_ClientState","collapseAnimation":"{\"duration\":450}","expandAnimation":"{\"duration\":450}","itemData":[{"value":"10","attributes":{"ownerTableViewId":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00"}},{"value":"20","attributes":{"ownerTableViewId":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00"}},{"value":"50","attributes":{"ownerTableViewId":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00"}},{"value":"200","selected":true,"attributes":{"ownerTableViewId":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00"}}],"localization":"{\"AllItemsCheckedString\":\"All items checked\",\"ItemsCheckedString\":\"items checked\",\"CheckAllString\":\"Check All\"}","selectedIndex":3}, {"selectedIndexChanged":Telerik.Web.UI.Grid.ChangePageSizeComboHandler,"selectedIndexChanging":Telerik.Web.UI.Grid.ChangingPageSizeComboHandler}, null, $get("ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00_ctl03_ctl01_PageSizeComboBox"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadGrid, {"ClientID":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1","ClientSettings":{"AllowAutoScrollOnDragDrop":true,"ShouldCreateRows":true,"DataBinding":{},"Selecting":{"CellSelectionMode":0,"AllowRowSelect":true,"EnableDragToSelectRows":true},"Scrolling":{"AllowScroll":true,"SaveScrollPosition":true,"ScrollHeight":"300px","UseStaticHeaders":true},"Resizing":{},"ClientMessages":{},"KeyboardNavigationSettings":{"AllowActiveRowCycle":false,"EnableKeyboardShortcuts":true,"FocusKey":89,"InitInsertKey":73,"RebindKey":82,"ExitEditInsertModeKey":27,"UpdateInsertItemKey":13,"DeleteActiveRow":127,"ExpandDetailTableKey":39,"CollapseDetailTableKey":37,"MoveDownKey":40,"MoveUpKey":38,"SaveChangesKey":85,"CancelChangesKey":81},"Animation":{},"Virtualization":{}},"Skin":"Bootstrap","UniqueID":"ctl00$ContentPlaceHolder1$ctl00$RadGrid1","_activeRowIndex":"","_controlToFocus":"","_currentPageIndex":0,"_defaultDateTimeFormat":"M/d/yyyy h:mm:ss tt","_editIndexes":"[]","_embeddedSkin":true,"_freezeText":"Freeze","_gridTableViewsData":"[{\"ClientID\":\"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00\",\"UniqueID\":\"ctl00$ContentPlaceHolder1$ctl00$RadGrid1$ctl00\",\"PageSize\":200,\"PageCount\":1,\"EditMode\":\"EditForms\",\"AllowPaging\":true,\"CurrentPageIndex\":0,\"VirtualItemCount\":0,\"AllowMultiColumnSorting\":false,\"AllowNaturalSort\":true,\"AllowFilteringByColumn\":false,\"PageButtonCount\":10,\"HasDetailTables\":false,\"HasMultiHeaders\":false,\"CheckListWebServicePath\":\"\",\"GroupLoadMode\":\"Server\",\"PagerAlwaysVisible\":true,\"IsItemInserted\":false,\"clientDataKeyNames\":[],\"hasDetailItemTemplate\":false,\"_dataBindTemplates\":false,\"_selectedItemStyle\":\"\",\"_selectedItemStyleClass\":\"rgSelectedRow\",\"_columnsData\":[{\"UniqueName\":\"STT\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"STT\",\"Display\":true},{\"UniqueName\":\"MON_HOC\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridTemplateColumn\",\"ColumnGroupName\":\"\",\"Editable\":false,\"DataTypeName\":\"System.String\",\"DataField\":\"\",\"Display\":false},{\"UniqueName\":\"MA_MON\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"MA_MON\",\"Display\":false},{\"UniqueName\":\"TEN_MON\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"TEN_MON\",\"Display\":true},{\"UniqueName\":\"MA\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"MA\",\"Display\":true},{\"UniqueName\":\"API_MA_BO\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"API_MA_BO\",\"Display\":false},{\"UniqueName\":\"HO_TEN\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"HO_TEN\",\"Display\":true},{\"UniqueName\":\"NGAY_SINH\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"NGAY_SINH\",\"Display\":true},{\"UniqueName\":\"MUC_DAT_DUOC_GK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"MUC_DAT_DUOC_GK\",\"Display\":false},{\"UniqueName\":\"DIEM_GK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"DIEM_GK\",\"Display\":false},{\"UniqueName\":\"MA_NOI_DUNG_NHAN_XET_GK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"MA_NOI_DUNG_NHAN_XET_GK\",\"Display\":false},{\"UniqueName\":\"NOI_DUNG_NHAN_XET_GK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"NOI_DUNG_NHAN_XET_GK\",\"Display\":false},{\"UniqueName\":\"MUC_DAT_DUOC_CK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"MUC_DAT_DUOC_CK\",\"Display\":true},{\"UniqueName\":\"DIEM_CK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"DIEM_CK\",\"Display\":true},{\"UniqueName\":\"MA_NOI_DUNG_NHAN_XET_CK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"MA_NOI_DUNG_NHAN_XET_CK\",\"Display\":true},{\"UniqueName\":\"NOI_DUNG_NHAN_XET_CK\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"NOI_DUNG_NHAN_XET_CK\",\"Display\":true},{\"UniqueName\":\"MA_GIAI_DOAN\",\"Resizable\":true,\"Reorderable\":true,\"Selectable\":true,\"Groupable\":true,\"ColumnType\":\"GridBoundColumn\",\"ColumnGroupName\":\"\",\"Editable\":true,\"DataTypeName\":\"System.String\",\"DataField\":\"MA_GIAI_DOAN\",\"Display\":true}]}]","_masterClientID":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ctl00","_shouldFocusOnPage":false,"_unfreezeText":"Unfreeze","allowMultiRowSelection":true,"clientStateFieldID":"ctl00_ContentPlaceHolder1_ctl00_RadGrid1_ClientState","renderMode":1}, null, null, $get("ctl00_ContentPlaceHolder1_ctl00_RadGrid1"));
+});
+//]]>
+</script>
+</form>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6D17DLN9DN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6D17DLN9DN');
+    </script>
+    <div id="loading-screen" class="hidden">
+        <div class="spinner"></div>
+    </div>
+    <div id="modalOverlay" class="ModalOverlay" style="display: none;">
+        <span class="closeimg" onclick="document.getElementById('modalOverlay').style.display='none'">×</span>
+        <img class="modal-content2" id="img02" src="https://www.w3schools.com/howto/img_snow.jpg" />
+        <div id="caption">Snow</div>
+    </div>
+</body>
+</html>
