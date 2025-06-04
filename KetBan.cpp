@@ -1,41 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> ke[1005];
-bool used[1005];
-int n, m;
-
+vector<int> ke[100005];
+bool used[100005];
+int a[100005];
+int n,m;
+int cnt;
 void dfs(int u){
 	used[u] = true;
+	cnt++;
 	for (int x : ke[u]){
 		if(!used[x]){
 			dfs(x);
 		}
 	}
 }
-
-int tplt(){
-	int cnt =0;
+void tplt(){
+	int maxVal = -1e9;
 	for (int i=1;i<=n;i++){
 		if(!used[i]){
-			cnt++;
+			cnt=0;
 			dfs(i);
+			maxVal = max(maxVal, cnt);
 		}
 	}
-	return cnt;
-}
-
-void dinh_tru(){
-	int cc = tplt();
-	int max = 1;
-	int pos;
-	for (int i=1;i<=n;i++){
-		memset(used, false, sizeof(used));
-		used[i] = true;
-		if(cc < tplt()){
-			cout << i<<" ";
-		}
-	}
+	cout << maxVal;
 }
 int main(){
 	int t;
@@ -52,7 +41,8 @@ int main(){
 			ke[x].push_back(y);
 			ke[y].push_back(x);
 		}
-		dinh_tru();
-		cout << endl;
+		tplt();
+		cout <<endl;
 	}
 }
+

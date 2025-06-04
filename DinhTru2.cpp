@@ -15,7 +15,7 @@ void dfs(int u){
 }
 
 int tplt(){
-	int cnt =0;
+	int cnt=0;
 	for (int i=1;i<=n;i++){
 		if(!used[i]){
 			cnt++;
@@ -24,18 +24,23 @@ int tplt(){
 	}
 	return cnt;
 }
-
 void dinh_tru(){
-	int cc = tplt();
-	int max = 1;
-	int pos;
-	for (int i=1;i<=n;i++){
+	memset(used, false, sizeof(used));
+	int ncc = tplt();
+	int maxVal = -1e9;
+	int idx = 0;
+	for(int i=1;i<=n;i++){
 		memset(used, false, sizeof(used));
 		used[i] = true;
-		if(cc < tplt()){
-			cout << i<<" ";
+		int x = tplt();
+		if(ncc < x){
+			if(x > maxVal){
+				maxVal = x;
+				idx = i;
+			}
 		}
 	}
+	cout << idx;
 }
 int main(){
 	int t;
@@ -56,3 +61,4 @@ int main(){
 		cout << endl;
 	}
 }
+

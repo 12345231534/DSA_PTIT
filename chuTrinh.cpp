@@ -4,39 +4,33 @@ using namespace std;
 vector<int> ke[1005];
 bool used[1005];
 int n, m;
-
+int oke;
+int parent[1005];
 void dfs(int u){
+	if(oke) return;
 	used[u] = true;
 	for (int x : ke[u]){
 		if(!used[x]){
+			parent[x] = u;
 			dfs(x);
+		}
+		else if(x != parent[u]){
+			oke =1;
 		}
 	}
 }
 
-int tplt(){
-	int cnt =0;
+void chuTrinh(){
+	oke =0;
 	for (int i=1;i<=n;i++){
 		if(!used[i]){
-			cnt++;
 			dfs(i);
 		}
 	}
-	return cnt;
+	if(oke) cout <<"YES";
+	else cout <<"NO";
 }
 
-void dinh_tru(){
-	int cc = tplt();
-	int max = 1;
-	int pos;
-	for (int i=1;i<=n;i++){
-		memset(used, false, sizeof(used));
-		used[i] = true;
-		if(cc < tplt()){
-			cout << i<<" ";
-		}
-	}
-}
 int main(){
 	int t;
 	cin >>t;
@@ -46,13 +40,15 @@ int main(){
 			ke[i].clear();
 		}
 		memset(used, false, sizeof(used));
+		memset(parent, 0, sizeof(parent));
 		for (int i=0;i<m;i++){
 			int x, y;
 			cin >>x>>y;
 			ke[x].push_back(y);
 			ke[y].push_back(x);
 		}
-		dinh_tru();
+		chuTrinh();
 		cout << endl;
 	}
 }
+

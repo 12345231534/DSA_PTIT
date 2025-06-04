@@ -14,6 +14,7 @@ void dfs(int u){
 	}
 }
 
+
 int tplt(){
 	int cnt =0;
 	for (int i=1;i<=n;i++){
@@ -27,15 +28,26 @@ int tplt(){
 
 void dinh_tru(){
 	int cc = tplt();
-	int max = 1;
+	int max =1;
 	int pos;
 	for (int i=1;i<=n;i++){
 		memset(used, false, sizeof(used));
 		used[i] = true;
-		if(cc < tplt()){
-			cout << i<<" ";
+		int tmp = tplt();
+		if(cc < tmp){
+			if(tmp >max){
+				max = tmp;
+				pos = i;
+			}
 		}
 	}
+	if(max==1){
+		cout <<0<<endl;
+	}
+	else{
+		cout << pos<<endl;
+	}
+
 }
 int main(){
 	int t;
@@ -53,6 +65,5 @@ int main(){
 			ke[y].push_back(x);
 		}
 		dinh_tru();
-		cout << endl;
 	}
 }
