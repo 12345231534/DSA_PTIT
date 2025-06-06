@@ -1,28 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int check(string s){
-	stack<int> st;
-	for (int i=0;i<s.size();i++){
-		if(s[i] == '('){
-			st.push(i);
-		}
-		else if(s[i] == ')'){
-			int j = st.top();
-			if(i-j == 2){
-				return 1;
-			}
-			else if(s[j+1] == '(' && s[i-1] == ')'){
-				return 1;
-			}
-			else{
-				st.pop();
-			}
-		}
-	}
-	return 0;
-}
-
 int main(){
 	int t;
 	cin >>t;
@@ -30,8 +8,26 @@ int main(){
 		string s;
 		cin >>s;
 		stack<int> st;
-		if (check(s)) cout << "Yes";
-		else cout << "No";
-		cout << endl;
+		int oke =1;
+		for (int i=0;i<s.size();i++){
+			if(s[i] == '('){
+				st.push(i);
+			}
+			else if(s[i] == ')'){
+				int top = st.top(); st.pop();
+				if(i-top == 2){
+					oke =0;
+				}
+				if(s[top+1]=='(' && s[i-1] == ')'){
+					oke =0;
+				}
+			}
+
+		}
+		if(!st.empty()){
+			oke =0;
+		}
+		if(oke) cout <<"No"<<endl;
+		else cout << "Yes"<<endl;
 	}
 }

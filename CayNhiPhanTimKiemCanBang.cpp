@@ -11,24 +11,20 @@ struct node{
 	}
 };
 
-void insert(node *root, int x){
-	if(root->data > x){
-		if(root->left){
-			insert(root->left, x);
-		}
-		else root->left = new node(x);
-	}
-	if(root->data<x){
-		if(root->right) insert(root->right, x);
-		else root->right = new node(x);
-	}
+node *buildTree(int a[], int left, int right){
+	if(left>right) return NULL;
+	int mid = (left+right)/2;
+	node *root = new node(a[mid]);
+	root->left = buildTree(a, left, mid-1);
+	root->right = buildTree(a,mid+1, right);
+	return root;
 }
 
 void postOrder(node *root){
 	if(root == NULL) return;
+	cout << root->data<<" ";
 	postOrder(root->left);
 	postOrder(root->right);
-	cout << root->data<<" ";
 }
 
 int main(){
@@ -41,12 +37,9 @@ int main(){
 		for (int i=0;i<n;i++){
 			cin >>a[i];
 		}
-		node *root = new node(a[0]);
-		for (int i=1;i<n;i++){
-			insert(root, a[i]);
-		}
+		sort(a, a+n);
+		node *root = buildTree(a,0,n-1);
 		postOrder(root);
 		cout <<endl;
-		
 	}
 }
